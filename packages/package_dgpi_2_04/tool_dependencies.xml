@@ -1,0 +1,22 @@
+<?xml version="1.0"?>
+<tool_dependency>
+    <package name="dgpi" version="2.04">
+        <install version="1.0">
+            <actions>
+                <action type="download_by_url" sha256sum="69a7328c5f3a9d20f7e00ffde0b4a674e797f5fae80403429845b4ad42958337">https://web.archive.org/web/20070709042514/http://129.194.185.165/dgpi/dgpi_204.zip</action>
+                <action type="shell_command">gunzip dgpi_204.zip; cd dgpi_204</action>jar cvfm DGPI.jar manifest.txt *.class
+                <action type="shell_command">javac -encoding ISO-8859-1 -Xlint:deprecation -Xlint:unchecked DGPI.java</action>
+                <action type="shell_command">jar cvfm DGPI.jar manifest.txt *.class</action>
+                <action type="move_file">
+                    <source_directory>DGPI.jar</source_directory>
+                    <destination_directory>$INSTALL_DIR/bin</destination_directory>
+                </action>
+                <action type="shell_command">chmod ugo+x $INSTALL_DIR/DGPI.jar</action>
+                <action type="set_environment">
+                    <environment_variable name="PATH" action="prepend_to">$INSTALL_DIR/bin</environment_variable>
+                </action>
+            </actions>
+        </install>
+        <readme></readme>
+    </package>
+</tool_dependency>

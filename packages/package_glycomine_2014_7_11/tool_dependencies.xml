@@ -1,0 +1,19 @@
+<?xml version="1.0"?>
+<tool_dependency>
+    <package name="glycomine" version="2014_7_11">
+        <install version="1.0">
+            <actions>
+                <action type="download_by_url" sha256sum="88f2814c131e2f4af6d2339cdf379cdf52ee032039b2a02638a3d622701cde6d">http://www.structbioinfor.org/javatools/GlycoMine/launch.jnlp</action>
+                <action type="move_directory_files">
+                    <source_directory>.</source_directory>
+                    <destination_directory>$INSTALL_DIR</destination_directory>
+                </action>
+                <action type="shell_command">chmod ugo+x $INSTALL_DIR/tmseg.jar</action>
+                <action type="set_environment">
+                    <environment_variable name="PATH" action="prepend_to">$INSTALL_DIR/</environment_variable>
+                </action>
+            </actions>
+        </install>
+        <readme></readme>
+    </package>
+</tool_dependency>
