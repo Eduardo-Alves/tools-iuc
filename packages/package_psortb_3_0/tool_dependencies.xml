@@ -1,0 +1,21 @@
+<?xml version="1.0"?>
+<tool_dependency>
+    <package name="psortb" version="3.0">
+        <install version="1.0">
+            <actions>
+		<action type="download_by_url" sha256sum=" ">http://www.psort.org/download/bio-tools-psort-all.3.0.4.tar.gz </action>
+		<action type="download_by_url" sha256sum=""> http://www.psort.org/download/libpsortb-1.0.tar.gz </action>
+		<action type="download_by_url" sha256sum="">http://www.psort.org/download/pft2.3.4.tar.gz</action>
+                <action type="move_directory_files">
+                    <source_directory>.</source_directory>
+                    <destination_directory>$INSTALL_DIR</destination_directory>
+                </action>
+                <action type="shell_command">chmod ugo+x $INSTALL_DIR/psort</action>
+                <action type="set_environment">
+                    <environment_variable name="PATH" action="prepend_to">$INSTALL_DIR/</environment_variable>
+                </action>
+            </actions>
+        </install>
+        <readme></readme>
+    </package>
+</tool_dependency>

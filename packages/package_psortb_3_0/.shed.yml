@@ -1,0 +1,6 @@
+categories: [Tool Dependency Packages]
+description: Contains a tool dependency definition that downloads and compiles PSORTb version 3.0
+homepage_url: http://www.psort.org/documentation/index.html
+long_description: PSORTb 3.0: Improved protein subcellular localization prediction with refined localization subcategories and predictive capabilities for all prokaryotes.
+name: package_psortb_3_0
+owner: iuc
