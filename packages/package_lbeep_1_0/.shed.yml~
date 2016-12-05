@@ -1,6 +1,0 @@
-categories: [Tool Dependency Packages]
-description: Contains a tool dependency definition that downloads and compiles version Glycomine snapshop 2014_7_11
-homepage_url: http://www.structbioinfor.org/Lab/GlycoMine/
-long_description: A comprehensive tool for the systematic in silico identification of C-, N- and O-linked glycosylation sites in the human proteome.
-name: package_glycomine_2014_7_11
-owner: iuc

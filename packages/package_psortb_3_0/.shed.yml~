@@ -1,6 +1,0 @@
-categories: [Tool Dependency Packages]
-description: Contains a tool dependency definition that downloads PredSi libraries 
-homepage_url: http://www.predisi.de/
-long_description: PrediSi (PREDIction of SIgnal peptides) is a software tool for predicting signal peptide sequences and their cleavage positions in bacterial and eukaryotic proteins.
-name: package_predsi_2004_02_13
-owner: iuc
