@@ -3,4 +3,4 @@ description: Contains a tool dependency definition that downloads and compiles v
 homepage_url: http://www.well.ox.ac.uk/rmott/ARIADNE/
 long_description: ARIADNE is a package of two programs, ariadne and prospero, that compare protein sequences and profiles using the Smith-Waterman algorithm
 name: package_ariadne_1_3
-owner: iuc
+owner: planemo
