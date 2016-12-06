@@ -1,0 +1,32 @@
+<tool id="dgpi" name="DGPI: Prediction of GPI-anchor in proteins" version="1.0">
+    <requirements>
+        <requirement type="package" version="2.04">dgpi</requirement>
+    </requirements>
+    <stdio>
+        <exit_code range="1:" />
+    </stdio>
+    <command><![CDATA[
+        java DGPI -file=$input1 -output=text
+    ]]></command>
+    <inputs>
+        <param type="data" name="file containing access number, entry number or a protein in fasta format" format="" />
+        <param type="data" name="input1" format="txt" />
+    </inputs>
+    <outputs>
+        <data name="output" format="txt" />
+        <data name="output1" format="txt.txt" from_work_dir="example_fasta_format.txt.txt" />
+    </outputs>
+    <help><![CDATA[
+        Error: Could not find or load main class DGPI
+
+    ]]></help>
+    <citations>
+        <citation type="bibtex">
+@misc{renameTODO,
+  author = {LastTODO, FirstTODO},
+  year = {TODO},
+  title = {TODO},
+  url = {http://dgpi.pathbot.com/dgpi},
+}</citation>
+    </citations>
+</tool>
