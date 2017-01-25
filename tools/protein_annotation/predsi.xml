@@ -1,0 +1,35 @@
+<tool id="PredSi" name="Predict Signal Peptides" version="0.1.0">
+    <requirements>
+    </requirements>
+    <stdio>
+        <exit_code range="1:" />
+    </stdio>
+    <command><![CDATA[
+    _JAVA_OPTIONS=\${_JAVA_OPTIONS:-'-Xmx2048m -Xms256m'} && export _JAVA_OPTIONS && java -jar $__tool_directory__/JSPP.jar $__tool_directory__/tool-data/eukarya.smx $input1 $output1
+    ]]></command>
+    <inputs>
+        <param type="data" name="input1" format="fasta" label="Sequence Fasta"/>
+    </inputs>
+    <outputs>
+        <data name="output1" format="gff" from_work_dir="seq.out" />
+    </outputs>
+    <tests>
+        <test>
+            <param name="input1" value="seq.fa"/>
+            <output name="output1" file="seq.out"/>
+        </test>
+    </tests>
+    <help><![CDATA[
+        USAGE: JSPP positive-matrix.smx sequences.fasta result.txt
+
+    ]]></help>
+    <citations>
+        <citation type="bibtex">
+@misc{predsi,
+  author = {Hiller, K},
+  year = {2004},
+  title = {PrediSi: prediction of signal peptides and their cleavage positions},
+  url = {https://www.ncbi.nlm.nih.gov/pmc/articles/PMC441516/},
+}</citation>
+    </citations>
+</tool>

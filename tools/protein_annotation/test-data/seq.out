@@ -1,0 +1,3 @@
+##gff-version 2
+##sequence-name source  feature start   end     score   N/A ?
+seq.fa	PredSi	SIGNAL	1	30	0.7746676628802578	.	.	YES
