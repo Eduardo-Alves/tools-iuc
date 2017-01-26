@@ -5,10 +5,15 @@
         <exit_code range="1:" />
     </stdio>
     <command><![CDATA[
-    _JAVA_OPTIONS=\${_JAVA_OPTIONS:-'-Xmx2048m -Xms256m'} && export _JAVA_OPTIONS && java -jar $__tool_directory__/JSPP.jar $__tool_directory__/tool-data/eukarya.smx $input1 $output1
+        _JAVA_OPTIONS=\${_JAVA_OPTIONS:-'-Xmx2048m -Xms256m'} && export _JAVA_OPTIONS && java -jar $__tool_directory__/JSPP.jar $__tool_directory__/tool-data/${matrix.value} $input1 $output1
     ]]></command>
     <inputs>
         <param type="data" name="input1" format="fasta" label="Sequence Fasta"/>
+        <param name="matrix" type="select" label="Organism Group">
+        <option value="eukarya.smx">Eukaryote</option>
+        <option value="gramp.smx">Gram negative bacteria</option>
+        <option value="gramn.smx">Gram negative bacteria</option>
+        </param>
     </inputs>
     <outputs>
         <data name="output1" format="gff" from_work_dir="seq.out" />
