@@ -1,0 +1,14 @@
+categories: [Sequence Analysis]
+description: Ariadne DGPI Glycomine LBEEP PredSi PSORTb Tmseg
+long_description: "ARIADNE is a package of two programs, ariadne and prospero, that\
+  \ compare protein sequences and profiles using the Smith-Waterman algorithm\n\n\
+  http://www.well.ox.ac.uk/rmott/ARIADNE\n\nDGPI Detection/prediction of GPI cleavage\
+  \ site  in a protein\nGLycomine  protein glycosylation sites prediction\nwww.structbioinfor.org/Lab/GlycoMine/\n\
+  \nLBEEP: Linear B-Cell Exact Epitope Predictor\nhttps://github.com/brsaran/LBEEP\n\
+  \nPREDIction of SIgnal peptides\nhttp://www.predisi.de/\n\nPSORTb version 3.0.2\
+  \ bacterial localization prediction tool \nhttp://www.psort.org/psortb/\n\nTMSEG\
+  \ predicts transmembrane proteins (TMP) and transmembrane helices (TMH) using position-specific\
+  \ scoring matrices (PSSM) \nhttps://rostlab.org/owiki/index.php/Tmseg"
+name: protein_annotation
+owner: iuc
+remote_repository_url: 'https://github.com/iuc/tools-iuc/tools/protein_annotation/  '

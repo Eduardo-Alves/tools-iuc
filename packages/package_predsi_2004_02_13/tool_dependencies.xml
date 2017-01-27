@@ -1,0 +1,19 @@
+<?xml version="1.0"?>
+<tool_dependency>
+    <package name="predsi" version="2004_02_13">
+        <install version="1.0">
+            <actions>
+                <action type="download_by_url" sha256sum="">https://github.com/Eduardo-Alves/PredSi/blob/master/JSPP.jar</action>
+                <action type="move_file">
+                    <source_directory>JSPP.jar</source_directory>
+                    <destination_directory>$INSTALL_DIR/bin</destination_directory>
+                </action>
+                <action type="shell_command">chmod ugo+x $INSTALL_DIR/JSPP.jar</action>
+                <action type="set_environment">
+                    <environment_variable name="PATH" action="prepend_to">$INSTALL_DIR/bin</environment_variable>
+                </action>
+            </actions>
+        </install>
+        <readme></readme>
+    </package>
+</tool_dependency>
