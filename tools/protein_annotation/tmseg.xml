@@ -1,16 +1,51 @@
 <tool id="tmseg" name="TMSEG: transmembrane proteins prediction" version="1.0">
     <requirements>
         <requirement type="package" version="2.5.0">package_blast_plus</requirement>
+	<requirement type="package" version="2.2.0">package_tmseg</requirement>
     </requirements>
     <stdio>
         <exit_code range="1:" />
     </stdio>
     <command><![CDATA[
-        java -jar  -i /fasta/ -p /pssm/.pssm -o query.out
+awk -v tmp=$tmp '/^>/ {OUT=tmp"/fasta/"substr($1,2) ".fa"}; {print >> OUT; close(OUT)}' $peptides
+for file in $(ls $tmp/fasta) 
+do
+	queryid=$(basename ${file%.*}) 
+	psiblast -db $database -query $tmp/fasta/$file -outfmt 6  -out_ascii_pssm $tmp/pssm/$file.pssm -evalue 1e-5 -inclusion_ethresh 1e-5 -num_iterations 3 -seg no -use_sw_tback -num_threads 16 >> psiblast.out ;
+	java -jar $TSMEGJAR -i $tmp/fasta/$file -p $tmp/pssm/$file.pssm -o query.out;
+	grep -v '^#' tmseg.jar >> $output
+	result=$(tail -1 query.out)
+	hstart=$(echo $result | grep -ob H | head -1 | grep -oE '[0-9]+')
+	hend=$(echo $result | grep -ob H | tail -1 | grep -oE '[0-9]+')
+	hcount=$(grep -c TRANSMEM query.out)
+	pattern=$(echo $result | perl -pe 's/1/o/g;' -pe 's/2/i/g;' -pe 's/((H)\2+)/$-[2]."-".$+[1]/ge;' -pe 's/o+/o/g;' -pe 's/i+/i/g')
+	if [  $hcount ]
+		then echo -e $queryid '\ttmseg\ttransmembrane helices\t'$hstart '\t' $hend '\t' $hcount '\t.\t.\tNote='$pattern >> $output;
+	fi
+done;
     ]]></command>
     <inputs>
-        <param type="data" name="protein in fasta format" format="" />
-        <param type="data" name="input1" format="fa" />
+        <param type="data" name="peptides" format="fa" help="protein in fasta format" />
+	<conditional name="db_opts">
+            <param name="db_opts_selector" type="select" label="Subject database/sequences">
+              <option value="db" selected="True">BLAST Database</option>
+              <option value="histdb">BLAST database from your history</option>
+            </param>
+            <when value="db">
+                <param name="database" type="select" label="Protein BLAST database">
+                    <options from_file="blastdb_p.loc">
+                      <column name="value" index="0"/>
+                      <column name="name" index="1"/>
+                      <column name="path" index="2"/>
+                    </options>
+                </param>
+                <param name="histdb" type="hidden" value="" />
+            </when>
+            <when value="histdb">
+                <param name="database" type="hidden" value="" />
+                <param name="histdb" type="data" format="blastdbp" label="Protein BLAST database" />
+            </when>
+	</conditional>
     </inputs>
     <outputs>
         <data name="output" format="gff" />
