@@ -1,6 +1,0 @@
-categories: [Tool Dependency Packages]
-description: Contains a tool dependency definition that downloads version 1.0 of LBEEP
-homepage_url: https://github.com/brsaran/LBEEP
-long_description: Linear B-Cell Exact Epitope Predictor
-name: package_lbeep_1_0
-owner: iuc
