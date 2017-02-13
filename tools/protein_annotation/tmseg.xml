@@ -51,6 +51,14 @@ done;
         <data name="output" format="gff" />
         <data name="output1" format="gff" from_work_dir="test_data/seq.gff" />
     </outputs>
+    <tests>
+        <test>
+            <param name="query" value="four_human_proteins.fasta" ftype="fasta" />
+            <param name="db_opts_selector" value="db" />
+	    <param name="database.fields.path" value="test_data/" />
+	     <param name="histdb" value="" />
+        </test>
+    </tests>
     <help><![CDATA[
         TODO: Fill in help.
     ]]></help>
