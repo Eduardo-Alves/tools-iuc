@@ -8,9 +8,9 @@
     </stdio>
     <command><![CDATA[
 awk -v tmp=$tmp '/^>/ {OUT=tmp"/fasta/"substr($1,2) ".fa"}; {print >> OUT; close(OUT)}' $peptides
-for file in $(ls $tmp/fasta) 
+for file in $(ls $tmp/fasta)
 do
-	queryid=$(basename ${file%.*}) 
+	queryid=$(basename ${file%.*})
 	psiblast -db $database -query $tmp/fasta/$file -outfmt 6  -out_ascii_pssm $tmp/pssm/$file.pssm -evalue 1e-5 -inclusion_ethresh 1e-5 -num_iterations 3 -seg no -use_sw_tback -num_threads 16 >> psiblast.out ;
 	java -jar $TSMEGJAR -i $tmp/fasta/$file -p $tmp/pssm/$file.pssm -o query.out;
 	grep -v '^#' tmseg.jar >> $output
@@ -61,7 +61,7 @@ done;
         </test>
     </tests>
     <help><![CDATA[
-        TODO: Fill in help.
+                tmseg -p peptides.fa -d database_prefix -e evalue_cutoff -t threshold_report -o output.gff
     ]]></help>
     <citations>
         <citation type="bibtex">

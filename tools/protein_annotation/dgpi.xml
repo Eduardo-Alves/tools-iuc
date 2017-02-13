@@ -6,7 +6,7 @@
         <exit_code range="1:" />
     </stdio>
     <command><![CDATA[
-        java DGPI -file=$input -output=gff
+        java -jar $JAVA_JAR_PATH/DGPI -file=$input -output=gff
     ]]></command>
     <inputs>
         <param type="data" name="input" format="txt" />

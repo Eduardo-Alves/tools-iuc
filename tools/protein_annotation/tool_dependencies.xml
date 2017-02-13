@@ -7,10 +7,6 @@
     <repository name="package_dgpi_2_04" owner="planemo" prior_installation_required="True" toolshed="http://localhost:9009/" />
    </package>
 
-   <package name="glycomine" version="2014.7.11">
-    <repository name="package_glycomine_2014_7_11" owner="planemo" prior_installation_required="True" toolshed="http://localhost:9009/"  />
-   </package>
-
    <package name="lbeep" version="1.0">
     <repository name="package_lbeep_1_0" owner="planemo" prior_installation_required="True" toolshed="http://localhost:9009/" />
    </package>
