@@ -7,22 +7,7 @@
         <exit_code range="1:" />
     </stdio>
     <command><![CDATA[
-awk -v tmp=$tmp '/^>/ {OUT=tmp"/fasta/"substr($1,2) ".fa"}; {print >> OUT; close(OUT)}' $peptides
-for file in $(ls $tmp/fasta)
-do
-	queryid=$(basename ${file%.*})
-	psiblast -db $database -query $tmp/fasta/$file -outfmt 6  -out_ascii_pssm $tmp/pssm/$file.pssm -evalue 1e-5 -inclusion_ethresh 1e-5 -num_iterations 3 -seg no -use_sw_tback -num_threads 16 >> psiblast.out ;
-	java -jar $TSMEGJAR -i $tmp/fasta/$file -p $tmp/pssm/$file.pssm -o query.out;
-	grep -v '^#' tmseg.jar >> $output
-	result=$(tail -1 query.out)
-	hstart=$(echo $result | grep -ob H | head -1 | grep -oE '[0-9]+')
-	hend=$(echo $result | grep -ob H | tail -1 | grep -oE '[0-9]+')
-	hcount=$(grep -c TRANSMEM query.out)
-	pattern=$(echo $result | perl -pe 's/1/o/g;' -pe 's/2/i/g;' -pe 's/((H)\2+)/$-[2]."-".$+[1]/ge;' -pe 's/o+/o/g;' -pe 's/i+/i/g')
-	if [  $hcount ]
-		then echo -e $queryid '\ttmseg\ttransmembrane helices\t'$hstart '\t' $hend '\t' $hcount '\t.\t.\tNote='$pattern >> $output;
-	fi
-done;
+        tmseg.sh -p $peptides -d ${db_opts.database.fields.path} -e 1 -t 0 -o $output
     ]]></command>
     <inputs>
         <param type="data" name="peptides" format="fa" help="protein in fasta format" />
@@ -33,7 +18,7 @@ done;
             </param>
             <when value="db">
                 <param name="database" type="select" label="Protein BLAST database">
-                    <options from_file="blastdb_p.loc">
+                    <options from_file="tool-data/blastdb_p.loc">
                       <column name="value" index="0"/>
                       <column name="name" index="1"/>
                       <column name="path" index="2"/>
@@ -52,12 +37,11 @@ done;
     </outputs>
     <tests>
         <test>
-            <param name="query" value="tmseg_input.fasta" ftype="fasta" />
+            <param name="peptides" value="tmseg_input.fasta" ftype="fasta" />
             <param name="db_opts_selector" value="db" />
-	    <param name="database.fields.path" value="test_data/Pfam_reduced" />
-	     <param name="histdb" value="" />
-	    <output name="output" file="tmseg_output.gff"/>
-
+            <param name="database" value="four_human_proteins.fa" />
+	        <param name="histdb" value="" />
+	        <output name="output" file="tmseg_output.gff"/>
         </test>
     </tests>
     <help><![CDATA[

@@ -6,10 +6,10 @@
                 <action type="download_by_url" sha256sum="d162979dd34dd42d24e89b692651220a726af880ec05565efb47679f5c0c79a9">https://raw.githubusercontent.com/Eduardo-Alves/PredSi/master/PredSi.tar </action>
 
                 <action type="move_directory_files">
-                    <source_directory>PredSi</source_directory>
+                    <source_directory>.</source_directory>
                     <destination_directory>$INSTALL_DIR/</destination_directory>
                 </action>
-                <action type="shell_command">chmod ugo+x $INSTALL_DIR/PredSi/JSPP.jar</action>
+                <action type="shell_command">chmod ugo+x $INSTALL_DIR/JSPP.jar</action>
                 <action type="set_environment">
                     <environment_variable name="PATH" action="prepend_to">$INSTALL_DIR/bin</environment_variable>
                 </action>

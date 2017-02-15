@@ -1,12 +1,13 @@
 <tool id="dgpi" name="DGPI: Prediction of GPI-anchor in proteins" version="1.0">
     <requirements>
         <requirement type="package" version="2.04">dgpi</requirement>
+        <requirement type="set_environment">JAVA_JAR_PATH</requirement>
     </requirements>
     <stdio>
         <exit_code range="1:" />
     </stdio>
     <command><![CDATA[
-        java -jar $JAVA_JAR_PATH/DGPI -file=$input -output=gff
+        java -jar \$JAVA_JAR_PATH/DGPI.jar -file=$input -output=gff
     ]]></command>
     <inputs>
         <param type="data" name="input" format="txt" />
