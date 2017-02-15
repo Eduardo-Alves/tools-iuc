@@ -9,8 +9,7 @@
    <package name="tmseg" version="2.2.0">
     <repository name="package_tmseg_2_2_0" owner="eduardo" prior_installation_required="True"  />
    </package>
-    <package name="blast+" version="2.5.0">
-        <repository name="package_blast_plus_2_5_0" owner="iuc" />
-    </package>
-
+   <package name="blast" version="2.5.0">
+	<repository name="package_blast_plus_2_5_0" owner="iuc"  prior_installation_required="True" />
+   </package>
    </tool_dependency>

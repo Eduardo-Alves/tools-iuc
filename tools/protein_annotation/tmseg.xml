@@ -18,7 +18,7 @@
             </param>
             <when value="db">
                 <param name="database" type="select" label="Protein BLAST database">
-                    <options from_file="tool-data/blastdb_p.loc">
+                    <options from_file="blastdb_p.loc">
                       <column name="value" index="0"/>
                       <column name="name" index="1"/>
                       <column name="path" index="2"/>
