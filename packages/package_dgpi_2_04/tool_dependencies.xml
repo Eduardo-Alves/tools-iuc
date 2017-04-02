@@ -3,7 +3,7 @@
     <package name="dgpi" version="2.04">
         <install version="1.0">
             <actions>
-                <action type="download_by_url" sha256sum="7c973879e71310da152982cae07fe3ef30f2f920b23cc7e1335d61a79b205f93">https://github.com/Eduardo-Alves/DGPI/raw/master/DGPI.jar</action>
+                <action type="download_by_url" sha256sum="74a3b32c4efe90f3e4f0d70f7af8d26a789a79abe2c6a0c3642d71d87eff0f88">https://github.com/Eduardo-Alves/DGPI/raw/master/DGPI.jar</action>
                 <action type="move_file">
                     <source>DGPI.jar</source>
                     <destination>$INSTALL_DIR</destination>

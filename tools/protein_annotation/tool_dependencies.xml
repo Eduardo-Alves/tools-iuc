@@ -1,13 +1,13 @@
 <?xml version="1.0"?>
 <tool_dependency>
    <package name="dgpi" version="2.04">
-    <repository name="package_dgpi_2_04" owner="eduardo" prior_installation_required="True"  />
+    <repository name="package_dgpi_2_04" owner="planemo" prior_installation_required="True"  />
    </package>
    <package name="predsi" version="2004.02.13">
-    <repository name="package_predsi_2004_02_13" owner="eduardo" prior_installation_required="True"  />
+    <repository name="package_predsi_2004_02_13" owner="planemo" prior_installation_required="True"  />
    </package>
    <package name="tmseg" version="2.2.0">
-    <repository name="package_tmseg_2_2_0" owner="eduardo" prior_installation_required="True"  />
+    <repository name="package_tmseg_2_2_0" owner="planemo" prior_installation_required="True"  />
    </package>
    <package name="blast" version="2.5.0">
 	<repository name="package_blast_plus_2_5_0" owner="iuc"  prior_installation_required="True" />

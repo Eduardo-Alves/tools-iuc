@@ -13,14 +13,8 @@
     </version_command>
     <command><![CDATA[
 
-#if str($cond_download.select_download) == "yes":
-    wget --no-verbose 'https://data.broadinstitute.org/Trinity/Trinotate_v3_RESOURCES/Trinotate_v3.sqlite.gz' -O Trinotate.sqlite.gz &&
-    gunzip Trinotate.sqlite.gz &&
-#else:
-    ln -s '$cond_download.trinotate_sqlite_in' Trinotate.sqlite
-#end if
 
-annotation2g--gene_trans_map '$gene_trans_map' --transcript_fasta $trinity --transdecoder_pep '$transdecoder' &&
+mergegffs.py   g--gene_trans_map '$gene_trans_map'  &&
 #if $blastp:
     Trinotate Trinotate.sqlite LOAD_swissprot_blastp '$blastp' &&
 #end if
@@ -37,7 +31,6 @@ annotation2g--gene_trans_map '$gene_trans_map' --transcript_fasta $trinity --tra
     Trinotate Trinotate.sqlite LOAD_signalp '$signalp' &&
 #end if
 
-Trinotate Trinotate.sqlite report -E $report_option.E --pfam_cutoff $report_option.pfam_cutoff $report_option.incl_pep $report_option.incl_trans > '$trinotate_out';
 
     ]]></command>
     <inputs>
@@ -48,7 +41,7 @@ Trinotate Trinotate.sqlite report -E $report_option.E --pfam_cutoff $report_opti
         <param name="blastx" type="data" format="tabular" optional="true" label="BLASTX: Transcripts vs related species" help="[optional] NCBI BLAST+ blastx output. Output format: XML" />
         <param name="hmmscan" type="data" format="txt" optional="true" label="HMMER hmmscan: Peptides vs PFAM" help="[optional] HMMER hmmscan output: Table of per-domain hits. Output format: Table of per-domain hits (--domtblout)" />
         <param name="tmhmm" type="data" format="tabular" optional="true" label="TMHMM on Peptides" help="[optional]"/>
-        <param name="signalp" type="data" format="tabular" optional="true" label="SignalP on Peptides" help="[optional]" />        
+        <param name="signalp" type="data" format="tabular" optional="true" label="SignalP on Peptides" help="[optional]" />
 
         <conditional name="cond_modify">
             <param name="select_existing" type="select" label="Use an existing gffutils db from history">
@@ -60,10 +53,10 @@ Trinotate Trinotate.sqlite report -E $report_option.E --pfam_cutoff $report_opti
             </when>
             <when value="no" />
         </conditional>
-        
+
         <section name="filter_option" title="Filter options" expanded="False">
             <param argument="-E" type="float" value="1e-5" label="Maximum E-value for reporting best blast hit and associated annotations." />
-          
+
         </section>
         <param name="keep_sqlite" type="boolean" truevalue="true" falsevalue="false" checked="false" label="Keep the sqlite database file" help="Can be used for visualization purpose" />
     </inputs>
@@ -109,7 +102,7 @@ Trinotate Trinotate.sqlite report -E $report_option.E --pfam_cutoff $report_opti
 
 **What it does**
 
-This tool loads annotations from multiple tools into a gffutils sqlite database and outputs a single gff file containing all annotations. The sqlite db can be used for filtering and visualization. 
+This tool loads annotations from multiple tools into a gffutils sqlite database and outputs a single gff file containing all annotations. The sqlite db can be used for filtering and visualization.
 
 
 --------

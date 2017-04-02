@@ -3,8 +3,7 @@
     <package name="predsi" version="2004.02.13">
         <install version="1.0">
             <actions>
-                <action type="download_by_url" sha256sum="d162979dd34dd42d24e89b692651220a726af880ec05565efb47679f5c0c79a9">https://raw.githubusercontent.com/Eduardo-Alves/PredSi/master/PredSi.tar </action>
-
+                <action type="download_by_url" sha256sum="1932220d0f08cb6b6a4f68e444e49ed39547a6c6a0fbe252b2cc9b6d5bdd7dd9">https://raw.githubusercontent.com/Eduardo-Alves/PredSi/master/PredSi.tar.gz</action>
                 <action type="move_directory_files">
                     <source_directory>.</source_directory>
                     <destination_directory>$INSTALL_DIR/</destination_directory>
@@ -14,7 +13,7 @@
                     <environment_variable name="PATH" action="prepend_to">$INSTALL_DIR/bin</environment_variable>
                 </action>
                 <action type="set_environment">
-                     <environment_variable name="JAVA_JAR_PATH" action="set_to">$REPOSITORY_INSTALL_DIR</environment_variable>
+                     <environment_variable name="JAVA_JAR_PATH" action="set_to">$INSTALL_DIR</environment_variable>
                 </action>
             </actions>
         </install>
