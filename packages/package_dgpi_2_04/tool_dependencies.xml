@@ -10,10 +10,7 @@
                 </action>
                 <action type="shell_command">chmod ugo+x $INSTALL_DIR/DGPI.jar</action>
                 <action type="set_environment">
-                    <environment_variable name="PATH" action="prepend_to">$INSTALL_DIR</environment_variable>
-                </action>
-                <action type="set_environment">
-                    <environment_variable name="JAVA_JAR_PATH" action="set_to">$INSTALL_DIR</environment_variable>
+                    <environment_variable name="DGPI_JAR_PATH" action="set_to">$INSTALL_DIR</environment_variable>
                 </action>
             </actions>
         </install>

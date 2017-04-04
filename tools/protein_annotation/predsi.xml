@@ -1,13 +1,12 @@
 <tool id="PredSi" name="Predict Signal Peptides" version="0.1.0">
     <requirements>
        <requirement type="package" version="2004.02.13">predsi</requirement>
-       <requirement type="set_environment">JAVA_JAR_PATH</requirement>
     </requirements>
     <stdio>
         <exit_code range="1:" />
     </stdio>
     <command><![CDATA[
-        _JAVA_OPTIONS=\${_JAVA_OPTIONS:-'-Xmx2048m -Xms256m'} && export _JAVA_OPTIONS && java -jar \$JAVA_JAR_PATH/JSPP.jar $__tool_directory__/tool-data/${matrix.value} $input1 $output1
+        _JAVA_OPTIONS=\${_JAVA_OPTIONS:-'-Xmx2048m -Xms256m'} && export _JAVA_OPTIONS && java -jar \$PREDSI_JAR_PATH/JSPP.jar \$PREDSI_JAR_PATH/matrices/${matrix.value} $input1 $output1
     ]]></command>
     <inputs>
         <param type="data" name="input1" format="fasta" label="Sequence Fasta"/>

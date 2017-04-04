@@ -1,8 +1,5 @@
-# This is a test file distributed with the Galaxy BLAST+ wrapper for
-# defining a list of protein BLAST databases used in functional tests
-# for blastp etc.
+
+# This is a sample file distributed with Galaxy that is used to define a
+# list of protein BLAST databases, using three columns tab separated:
 #
-# See the file tool-data/blastdb_p.loc.sample for more information.
-#
-four_human_proteins	Four Human Proteins (no taxid)	${__HERE__}/four_human_proteins.fasta
-four_human_proteins_taxid	Four Human Proteins (with taxid)	${__HERE__}/four_human_proteins_taxid.fasta
+# <unique_id>{tab}<database_caption>{tab}<base_name_path>

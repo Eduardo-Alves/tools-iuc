@@ -1,13 +1,13 @@
 <tool id="tmseg" name="TMSEG: transmembrane proteins prediction" version="1.0">
     <requirements>
         <requirement type="package" version="2.5.0">package_blast_plus</requirement>
-	<requirement type="package" version="2.2.0">package_tmseg</requirement>
+	<requirement type="package" version="2.2.0">tmseg</requirement>
     </requirements>
     <stdio>
         <exit_code range="1:" />
     </stdio>
     <command><![CDATA[
-        tmseg.sh -p $peptides -d ${db_opts.database.fields.path} -e 1 -t 0 -o $output
+        bash $__tool_directory__/tmseg.sh -j \$TMSEG_JAR_PATH -p $peptides -d ${db_opts.database.fields.path} -e 1 -t 0 -o $output
     ]]></command>
     <inputs>
         <param type="data" name="peptides" format="fa" help="protein in fasta format" />
