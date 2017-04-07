@@ -1,5 +1,5 @@
 categories: [Sequence Analysis]
 description: Merge gff using gffutils
-long_description: Creates a gffutils SQLite database from transcript gff and adds protein annotations in blast XML, PFAM and protein gff format
+long_description: Creates a gffutils SQLite database from predicted proteins gff and adds protein annotations from blastp protein matches in outfmt6, tmhmm, signalp and hmmer predictions
 name: mergegffs
 owner: iuc
