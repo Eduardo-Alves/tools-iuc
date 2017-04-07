@@ -1,7 +1,8 @@
-<tool id="mergegff" name="Merge gff using gffutils" version="1.0">
+ <tool id="mergegff" name="Merge gff using gffutils" version="1.0">
     <requirements>
-        <requirement type="package" version="0.8">python_2_7_gffutils</requirement>
-	 <requirement type="package" version="1.0">genomegtftools</requirement>
+        <requirement type="package" version="0.8">gffutils</requirement>
+	      <requirement type="package" version="1.0">genomegtftools</requirement>
+        <requirement type="package" version="1.66">biopython</requirement>
     </requirements>
     <stdio>
         <exit_code range="1:" />

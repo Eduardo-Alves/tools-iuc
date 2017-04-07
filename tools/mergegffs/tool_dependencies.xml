@@ -1,9 +1,12 @@
 <?xml version="1.0"?>
 <tool_dependency>
-   <package name="python_2_7_gffutils" version="0.8">
+   <package name="gffutils" version="0.8">
     <repository name="package_python_2_7_gffutils_0_8" owner="iuc" prior_installation_required="True"  />
    </package>
-   <package name="genomegtftools" version="0.8">
+   <package name="genomegtftools" version="1.0">
     <repository name="package_genomegtftools_1_0" owner="eduardo" prior_installation_required="True"  />
    </package>
+   <package name="biopython" version="1.66">
+7	    <repository name="package_biopython_1_66" owner="biopython"/>
+8	  </package>
    </tool_dependency>
