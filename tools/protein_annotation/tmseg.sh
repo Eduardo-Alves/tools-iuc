@@ -5,7 +5,7 @@ do
         in
                 j) jar=${OPTARG};;
                 p) peptides=${OPTARG};;
-                d) database=${OPTARG};;
+                d) db=${OPTARG};;
                 e) evalue=${OPTARG};;
                 t) threshold=${OPTARG};;
                 o) output=${OPTARG};;
@@ -21,7 +21,7 @@ awk -v tmp=$tmp '/^>/ {OUT=tmp"/fasta/"substr($1,2) ".fa"}; {print >> OUT; close
 for file in $(ls $tmp/fasta)
 do
 	queryid=$(basename ${file%.*})
-	psiblast -db $database -query $tmp/fasta/$file -outfmt 6  -out_ascii_pssm $tmp/pssm/$file.pssm -evalue 1e-5 -inclusion_ethresh 1e-5 -num_iterations 3 -seg no -use_sw_tback -num_threads 16 >> psiblast.out ;
+	psiblast -db $db -query $tmp/fasta/$file -outfmt 6  -out_ascii_pssm $tmp/pssm/$file.pssm -evalue 1e-5 -inclusion_ethresh 1e-5 -num_iterations 3 -seg no -use_sw_tback -num_threads 16 >> psiblast.out ;
 	java -jar $jar/tmseg.jar  -i $tmp/fasta/$file -p $tmp/pssm/$file.pssm -o query.out;
 	#grep -v '^#' query.out >> $output
 	result=$(tail -1 query.out)

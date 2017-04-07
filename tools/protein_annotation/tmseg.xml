@@ -38,9 +38,9 @@
     <tests>
         <test>
             <param name="peptides" value="tmseg_input.fasta" ftype="fasta" />
-            <param name="db_opts_selector" value="db" />
-            <param name="database" value="four_human_proteins.fa" />
-	        <param name="histdb" value="" />
+            <param name="db_opts|db_opts_selector" value="db" />
+            <param name="db_opts|database" value="four_human_proteins" />
+	        <param name="db_opts|histdb" value="" />
 	        <output name="output" file="tmseg_output.gff"/>
         </test>
     </tests>
