@@ -1,6 +1,9 @@
 <?xml version="1.0"?>
 <tool_dependency>
    <package name="python_2_7_gffutils" version="0.8">
-    <repository name="python_2_7_gffutils_0_8" owner="iuc" prior_installation_required="True"  />
+    <repository name="package_python_2_7_gffutils_0_8" owner="iuc" prior_installation_required="True"  />
+   </package>
+   <package name="genomegtftools" version="0.8">
+    <repository name="package_genomegtftools_1_0" owner="eduardo" prior_installation_required="True"  />
    </package>
    </tool_dependency>
