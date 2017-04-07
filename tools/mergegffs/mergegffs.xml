@@ -14,9 +14,9 @@
     <command><![CDATA[
 
 
-python $__tool_directory__/mergegffs.py  -p $gff -d $sqlitedb \
+python $__tool_directory__/mergegffs.py  -p $gff -d $sqlitedb -o $output
 #if $blastp:
-    -b '$blastp' 
+    -b '$blastp'
 #end if
 #if $blastx:
     -x '$blastx'
@@ -79,7 +79,8 @@ python $__tool_directory__/mergegffs.py  -p $gff -d $sqlitedb \
             <param name="hmmscan" ftype="txt" value="TrinotatePFAM.out" />
             <param name="tmhmm" ftype="tabular" value="tmhmm.out" />
             <param name="signalp" ftype="tabular" value="signalp.out" />
-            <output name="output" file="output.gff" />
+            <param name="keep_sqlite" value="false" />
+            <output name="output" ftype="tabular" file="output.gff" />
         </test>
 
     </tests>
@@ -88,7 +89,10 @@ python $__tool_directory__/mergegffs.py  -p $gff -d $sqlitedb \
 
 **What it does**
 
-This tool loads annotations from multiple tools into a gffutils sqlite database and outputs a single gff file containing all annotations. The sqlite db can be used for filtering and visualization.
+This tool loads annotations from multiple tools into a gffutils sqlite database and outputs a single gff file containing all annotations.
+The sqlite db can be used for filtering and visualization.
+
+Based on https://github.com/galaxyproject/tools-iuc/tree/master/tools/trinotate
 
 
 --------

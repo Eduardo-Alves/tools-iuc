@@ -15,6 +15,7 @@ def main(argv, wayout):
         parser.add_argument('-t','--tmhmm', help="tmhmm results for peptides")
         parser.add_argument('-s','--signalP', help="signalP results for peptides")
         parser.add_argument('-d','--database', required=True, help="gff database to load or create")
+        parser.add_argument('-o','--output', required=True, help="output in gff format")
         args = parser.parse_args(argv)
 
 
@@ -32,5 +33,8 @@ def main(argv, wayout):
             os.system("pfam2gff.py -i "+args.pfam+" -g "+args.peptides+" -T > PFAM.gff")
             db=db.update(args.blastp)
 
+        with open(args.output, 'w') as fout:
+            for f in db.all_features():
+                fout.write(str(f) + '\n')
 if __name__ == "__main__":
         main(sys.argv[1:],sys.stdout)
