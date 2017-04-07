@@ -1,5 +1,6 @@
 categories: [Sequence Analysis]
 description: Merge gff using gffutils
 long_description: Creates a gffutils SQLite database from predicted proteins gff and adds protein annotations from blastp protein matches in outfmt6, tmhmm, signalp and hmmer predictions
+remote_repository_url:https://github.com/galaxyproject/tools-iuc/tree/master/tools/mergegffs
 name: mergegffs
 owner: iuc

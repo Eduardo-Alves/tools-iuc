@@ -7,6 +7,6 @@
     <repository name="package_genomegtftools_1_0" owner="eduardo" prior_installation_required="True"  />
    </package>
    <package name="biopython" version="1.66">
-7	    <repository name="package_biopython_1_66" owner="biopython"/>
-8	  </package>
+    <repository name="package_biopython_1_66" owner="biopython" prior_installation_required="True"/>
+  	</package>
    </tool_dependency>
