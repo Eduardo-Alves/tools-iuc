@@ -22,7 +22,7 @@
     <tests>
         <test>
             <param name="input1" value="seq.fa"/>
-            <output name="output1" file="seq.out" lines_diff=1/>
+            <output name="output1" file="seq.out" lines_diff="1" />
         </test>
     </tests>
     <help><![CDATA[
