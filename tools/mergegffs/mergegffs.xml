@@ -47,18 +47,18 @@ python $__tool_directory__/mergegffs.py  -p $gff -d $sqlitedb -o $output
         <param name="hmmscan" type="data" format="txt" optional="true" label="HMMER hmmscan: Peptides vs PFAM" help="[optional] HMMER hmmscan output: Table of per-domain hits. Output format: Table of per-domain hits (--domtblout)" />
         <param name="tmhmm" type="data" format="tabular" optional="true" label="TMHMM on Peptides" help="[optional]"/>
         <param name="signalp" type="data" format="tabular" optional="true" label="SignalP on Peptides" help="[optional]" />
-
+        <!--
         <conditional name="cond_modify">
             <param name="select_existing" type="select" label="Use an existing gffutils db from history">
-                <option value="yes" selected="True">Yes</option>
-                <option value="no">No</option>
+                <option value="yes" >Yes</option>
+                <option value="no" selected="True">No</option>
             </param>
             <when value="yes">
                 <param name="gffutils_sqlite_in" type="data" format="sqlite" optional="false" label="Existing GFFUtils SQLite database" help="http://daler.github.io/gffutils/index.html" />
             </when>
             <when value="no" />
         </conditional>
-
+      -->
         <section name="filter_option" title="Filter options" expanded="False">
             <param argument="-E" type="float" value="1e-5" label="Maximum E-value for reporting best blast hit and associated annotations." />
 
@@ -74,14 +74,14 @@ python $__tool_directory__/mergegffs.py  -p $gff -d $sqlitedb -o $output
     </outputs>
     <tests>
         <test>
-            <param name="gff" ftype="gff" value="Trinity.fasta.transdecoder.gff3" />
-            <param name="blastp" ftype="tabular" value="swissprot.blastp.outfmt6" />
-            <param name="blastx" ftype="tabular" value="swissprot.blastx.outfmt6" />
-            <param name="hmmscan" ftype="txt" value="TrinotatePFAM.out" />
-            <param name="tmhmm" ftype="tabular" value="tmhmm.out" />
-            <param name="signalp" ftype="tabular" value="signalp.out" />
+            <param name="gff" value="Trinity.fasta.transdecoder.gff3" />
+            <param name="blastp"  value="swissprot.blastp.outfmt6" />
+            <param name="blastx"  value="swissprot.blastx.outfmt6" />
+            <param name="hmmscan"  value="TrinotatePFAM.out" />
+            <param name="tmhmm"  value="tmhmm.out" />
+            <param name="signalp"  value="signalp.out" />
             <param name="keep_sqlite" value="false" />
-            <output name="output" ftype="tabular" file="output.gff" />
+            <output name="output" file="output.gff" />
         </test>
 
     </tests>

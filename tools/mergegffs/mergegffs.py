@@ -13,6 +13,7 @@ def main(argv, wayout):
         parser.add_argument('-m','--genemap', help="mapping of genes to transcripts")
         parser.add_argument('-p','--peptides',required=True, help="peptide prediction gff")
         parser.add_argument('-b','--blastp', help="blastp outfmt6 results for peptides")
+        parser.add_argument('-x','--blastx', help="blastx outfmt6 results for transcripts")
         parser.add_argument('-f','--pfam', help="hmmer results for peptides")
         parser.add_argument('-t','--tmhmm', help="tmhmm results for peptides")
         parser.add_argument('-s','--signalP', help="signalP results for peptides")

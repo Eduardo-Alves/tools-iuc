@@ -17,7 +17,7 @@
         <tests>
              <test>
                  <param name="input" value="example_fasta_format.txt"/>
-                 <output name="output" file="example_fasta_format.txt.gff"/>
+                 <output name="output" file="example_fasta_format.txt.gff" lines_diff="4"/>
              </test>
        </tests>
     <help><![CDATA[
