@@ -23,16 +23,16 @@ def main(argv, wayout):
 
 
         db = gffutils.create_db(args.peptides, dbfn=args.database, force=True, keep_order=True,merge_strategy='merge', sort_attribute_values=True)
-        if args.blastp == True:
+        if args.blastp is not None:
             os.system("convert2gff.py -i "+args.blastp+" -g  "+args.peptides+" -p blastp -t protein_match -T  -x > blastp.gff")
             db=db.update("blastp.gff")
-        if args.signalP == True:
-            os.system("convert2gff.py -i "+args.signalP+" -g "+args.peptides+" -T -t signalP > signalp.gff")
+        if args.signalP is not None:
+            os.system("convert2gff.py -i "+args.signalP+" -g "+args.peptides+" -T -p signalP -t signalpep > signalp.gff")
             db=db.update("signalP.gff")
-        if args.blastp == True:
-            os.tmhmm("convert2gff.py -i "+args.tmhmm+" -g "+args.peptides+" -T -t tmhmm > tmhmm.gff")
+        if args.tmhmm is not None:
+            os.system("convert2gff.py -i "+args.tmhmm+" -g "+args.peptides+" -T -p tmhmm -t trans_helix > tmhmm.gff")
             db=db.update("tmhmm.gff")
-        if args.pfam == True:
+        if args.pfam is not None:
             os.system("pfam2gff.py -i "+args.pfam+" -g "+args.peptides+" -T > PFAM.gff")
             db=db.update("PFAM.gff")
 
