@@ -24,17 +24,17 @@ def main(argv, wayout):
 
         db = gffutils.create_db(args.peptides, dbfn=args.database, force=True, keep_order=True,merge_strategy='merge', sort_attribute_values=True)
         if args.blastp == True:
-            os.system("blast2genomegff.py -b "+args.blastp+" -g  -d "+args.peptides+" -p blastp -t protein_match -T  -x > blastp.gff")
-            db=db.update(args.blastp)
-        if args.blastp == True:
+            os.system("convert2gff.py -i "+args.blastp+" -g  "+args.peptides+" -p blastp -t protein_match -T  -x > blastp.gff")
+            db=db.update("blastp.gff")
+        if args.signalP == True:
             os.system("convert2gff.py -i "+args.signalP+" -g "+args.peptides+" -T -t signalP > signalp.gff")
-            db=db.update(args.blastp)
+            db=db.update("signalP.gff")
         if args.blastp == True:
-            os.system("convert2gff.py -i "+args.tmhmm+" -g "+args.peptides+" -T -t tmhmm > tmhmm.gff")
-            db=db.update(args.blastp)
-        if args.blastp == True:
+            os.tmhmm("convert2gff.py -i "+args.tmhmm+" -g "+args.peptides+" -T -t tmhmm > tmhmm.gff")
+            db=db.update("tmhmm.gff")
+        if args.pfam == True:
             os.system("pfam2gff.py -i "+args.pfam+" -g "+args.peptides+" -T > PFAM.gff")
-            db=db.update(args.blastp)
+            db=db.update("PFAM.gff")
 
         with open(args.output, 'w') as fout:
             for f in db.all_features():

@@ -68,7 +68,7 @@ python $__tool_directory__/mergegffs.py  -p $gff -d $sqlitedb -o $output
     <outputs>
         <data name="output" format="tabular" label="Merged gff" >
         </data>
-        <data name="sqlitedb" format="sqlite" from_work_dir="Trinotate.sqlite" label="Trinotate sqlite database" >
+        <data name="sqlitedb" format="sqlite"  label="Gffutils sqlite database" >
             <filter>keep_sqlite</filter>
         </data>
     </outputs>
