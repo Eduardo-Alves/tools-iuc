@@ -3,7 +3,7 @@
     <package name="genomegtftools" version="1.0">
         <install version="1.0">
             <actions>
-                <action type="download_by_url" sha256sum="b8014803d7510c8b7a950248397b0a389aec5cdfbe957ee7369025614b17d2ba"> https://github.com/Eduardo-Alves/genomeGTFtools/archive/master.zip</action>
+                <action type="download_by_url" sha256sum="ce41fc3ed7f5b2e53d1552b29b268011a0cd8b4874d35e7d3d7d246194ca62cb"> https://github.com/Eduardo-Alves/genomeGTFtools/archive/master.zip</action>
                 <action type="move_directory_files">
                     <source_directory>.</source_directory>
                     <destination_directory>$INSTALL_DIR</destination_directory>
