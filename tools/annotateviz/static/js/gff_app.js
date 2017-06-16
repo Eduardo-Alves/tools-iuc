@@ -28,10 +28,10 @@ app.controller('MainCtrl', ['$scope', '$http', '$interval', 'uiGridGroupingConst
     }
   };
 
-    var  baseurl= '/api/datasets/'+hdaId+'?provider=sqlite-dict&data_type=raw_data&query=';
-    var  select="select%20seqid,seqid,source,featuretype,start,end,score,strand,frame,attributes%20from%20features";
-    var url= baseurl + select;
-    $http.get(url)
+    //var  baseurl= '/api/datasets/'+hdaId+'?provider=sqlite-dict&data_type=raw_data&query=';
+    //var  select="select%20seqid,seqid,source,featuretype,start,end,score,strand,frame,attributes%20from%20features";
+    //var url= baseurl + select;
+    $http.get('trans.json')
      .success (function(response){
          $scope.gridOptions.data = [].concat.apply([], response.data);
         //mygridOptions.totalItems = mygridOptions.data.length;

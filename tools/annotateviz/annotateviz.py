@@ -4,28 +4,26 @@ import gffutils
 import argparse
 import json
 
+def add_matches(matches,array):
+    for m in matches:
+        trans = {}
+        trans['mRNA'] = '.'.join(m.id.split('.',2)[:2]) #hack to recover mRNA from PFAM gff which doesn't include a query field
+        trans['Contig'] = m.seqid
+        trans['Source'] = m.source
+        trans['Score'] = m.score
+        array.append(trans)
 def main(argv, wayout):
         if not len(argv):
                 argv.append("-h")
         parser = argparse.ArgumentParser(formatter_class=argparse.RawDescriptionHelpFormatter, description=__doc__)
         parser.add_argument('-d','--database', help="gffutils sqlite database")
         parser.add_argument('-j','--json', help="report in json format")
-        trans_dict={}
+        gffutils.constants.always_return_list = False
         db = gffutils.interface.FeatureDB(args.database)
-        transcripts=db.features_of_type("mRNA")
-        for t in transcripts:
-            trans={}
-            trans.len=db.children_bp(t)
-            trans.id=t["ID"]
-            trans.gene=t["parent"]
-            trans.matches=[]
-            trans_dict[t["ID"]]=trans{}
-        matches=db.features_of_type("protein_match")
-        for m in matches:
-            trans_dict[m["target"]].matches.append[{"source":m["source"],"start":m["start"]}]
-
+        prediction_list = []
+        add_matches(db.features_of_type("protein_match"), prediction_list)
+        add_matches(db.features_of_type("signalpep"), prediction_list)
+        add_matches(db.features_of_type("trans_helix"), prediction_list)
+        add_matches(db.features_of_type("PFAM"), prediction_list)
         fout=open(args.json, 'w')
-        trans_list=[]
-        for t in trans_dict.values():
-            trans_list.append(t)
-        json.dump(trans_list,fout)
+        json.dump(prediction_list,fout)
