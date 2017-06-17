@@ -1,5 +1,5 @@
-<tool id="jbrowse" name="JBrowse" version="@WRAPPER_VERSION@">
-  <description>genome browser</description>
+<tool id="annotateviz" name="AnnotateViz" version="@WRAPPER_VERSION@">
+  <description>Annotation tool for transcriptomes</description>
   <macros>
     <import>macros.xml</import>
   </macros>
@@ -216,9 +216,6 @@ mv $output.files_path/index.html $output;
                value="Default"
                help="Organise your tracks into Categories for a nicer end-user experience" optional="False"/>
     <repeat name="data_tracks" title="Annotation Track">
-
-
-            <when value="gene_calls">
                 <expand macro="input_conditional" label="GFF/GFF3/BED Track Data" format="gff,gff3,bed" />
                 <conditional name="match_part">
                     <param label="This is match/match_part data"
@@ -243,10 +240,10 @@ mv $output.files_path/index.html $output;
                   <option value="JBrowse/View/Track/HTMLFeatures">HTML Features</option>
                   <option value="JBrowse/View/Track/CanvasFeatures" selected="true">Canvas Features</option>
                 </param>
-                //<expand macro="track_styling" />
-                //<expand macro="color_selection" />
-                //<expand macro="track_menu" />
-                //<expand macro="track_display" />
+                <!-- <expand macro="track_styling" />
+                <expand macro="color_selection" />
+                <expand macro="track_menu" />
+                <expand macro="track_display" /> -->
 
     </repeat>
 
@@ -262,7 +259,7 @@ mv $output.files_path/index.html $output;
       <test>
           <param name="db"  value="Trinotate_no_uniprot.sqlite" />
     <output name="output" file="trinotateviz.html" lines_diff="2" />
-
+	</test>
   </tests>
   <help><![CDATA[
 
