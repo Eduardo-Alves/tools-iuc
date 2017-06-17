@@ -1,11 +1,26 @@
-<tool id="trinotateviz" name="trinotate Viz" version="1.0">
-    <description>Grid visualization for Trinotate SQLite DB</description>
-    <requirements>
-    </requirements>
-    <stdio>
-        <exit_code range="1:" />
-    </stdio>
-    <command><![CDATA[
+<tool id="jbrowse" name="JBrowse" version="@WRAPPER_VERSION@">
+  <description>genome browser</description>
+  <macros>
+    <import>macros.xml</import>
+  </macros>
+  <expand macro="requirements"/>
+  <expand macro="stdio"/>
+  <command><![CDATA[
+
+
+    mkdir -p $output.files_path &&
+
+
+
+
+## Once that's done, we run the python script to handle the real work
+python $__tool_directory__/jbrowse.py
+
+--jbrowse \${JBROWSE_SOURCE_DIR}
+--standalone
+--outdir $output.files_path
+$trackxml &&
+mv $output.files_path/index.html $output;
         python annotateviz.py $database > $__tool_directory__/trans.json;
 
         #sed "s@input_db@${__app__.security.encode_id($db.id)}@" $__tool_directory__/static/trinotateviz.html > $output;
@@ -13,29 +28,247 @@
         cp $__tool_directory__/static/js/gff_app.js ${output.files_path};
         cp $__tool_directory__/static/css/main.css ${output.files_path};
         cp $__tool_directory__/static/trans.json ${output.files_path}
-    ]]></command>
-    <inputs>
-        <param name="db" type="data" format="sqlite" />
-    </inputs>
-    <outputs>
-        <data name="output" format="html" />
-    </outputs>
 
-    <tests>
+]]></command>
+  <configfiles>
+      <configfile name="trackxml"><![CDATA[<?xml version="1.0"?>
+<root>
+    <metadata>
+        <gencode>$gencode</gencode>
+        <genomes>
+            #if str($reference_genome.genome_type_select) == "indexed":
+              <genome>${reference_genome.genomes.fields.path}</genome>
+            #else
+              #for $genome in $reference_genome.genomes:
+                  <genome>$genome</genome>
+              #end for
+            #end if
+        </genomes>
+        <general>
+            <defaultLocation>${jbgen.defaultLocation}</defaultLocation>
+            <trackPadding>${jbgen.trackPadding}</trackPadding>
+
+            <shareLink>${jbgen.shareLink}</shareLink>
+            <aboutDescription>${jbgen.aboutDescription}</aboutDescription>
+            <show_tracklist>${jbgen.show_tracklist}</show_tracklist>
+            <show_nav>${jbgen.show_nav}</show_nav>
+            <show_overview>${jbgen.show_overview}</show_overview>
+            <show_menu>${jbgen.show_menu}</show_menu>
+            <hideGenomeOptions>${jbgen.hideGenomeOptions}</hideGenomeOptions>
+        </general>
+    </metadata>
+    <tracks>
+        #for $tg in $track_groups:
+        #for $track in $tg.data_tracks:
+        <track cat="${tg.category}" format="${track.data_format.data_format_select}" visibility="${track.data_format.track_visibility}">
+            <files>
+              #for $dataset in $track.data_format.annotation:
+              <trackFile path="${dataset}" ext="${dataset.ext}" label="${dataset.element_identifier}" />
+              #end for
+            </files>
+
+            <options>
+            #if str($track.data_format.data_format_select) == "gene_calls" or  str($track.data_format.data_format_select) == "blast":
+                <style>
+                    <className>${track.data_format.jbstyle.style_classname}</className>
+                    <description>${track.data_format.jbstyle.style_description}</description>
+                    <label>${track.data_format.jbstyle.style_label}</label>
+                    <height>${track.data_format.jbstyle.style_height}</height>
+                </style>
+                <scaling>
+                  #if str($track.data_format.jbcolor_scale.color_score.color_score_select) == "none":
+                        <method>ignore</method>
+                        <scheme>
+                          #if str($track.data_format.jbcolor_scale.color_score.color.color_select) == "automatic":
+                            <color>__auto__</color>
+                          #else
+                            <color>${track.data_format.jbcolor_scale.color_score.color.style_color}</color>
+                          #end if
+                        </scheme>
+                  #else
+                        <method>score</method>
+                        <algo>${track.data_format.jbcolor_scale.color_score.score_scaling}</algo>
+                        <scales>
+                            <type>${track.data_format.jbcolor_scale.color_score.score_scales.scale_select}</type>
+
+                          #if str($track.data_format.jbcolor_scale.color_score.score_scales.scale_select) == "manual":
+                            <min>${track.data_format.jbcolor_scale.color_score.score_scales.minimum}</min>
+                            <max>${track.data_format.jbcolor_scale.color_score.score_scales.maximum}</max>
+                          #end if
+                        </scales>
+                        <scheme>
+                            <type>${track.data_format.jbcolor_scale.color_score.color_scheme.score_scheme}</type>
+                        ## auto_color
+                        #if str($track.data_format.jbcolor_scale.color_score.color_scheme.score_scheme) == "opacity":
+                          #if str($track.data_format.jbcolor_scale.color_score.color_scheme.color.color_select) == "automatic":
+                            <color>__auto__</color>
+                          #else
+                            <color>${track.data_format.jbcolor_scale.color_score.color_scheme.color.style_color}</color>
+                          #end if
+                        #end if
+                        </scheme>
+                  #end if
+                </scaling>
+                <menus>
+                  #for $menu_item in $track.data_format.jbmenu.track_menu:
+                  <menu>
+                    <action>${menu_item.menu_action}</action>
+                    #if str($menu_item.menu_label) != "":
+                      <label>${menu_item.menu_label}</label>
+                    #end if
+                    #if str($menu_item.menu_title) != "":
+                      <title>${menu_item.menu_title}</title>
+                    #end if
+                    #if str($menu_item.menu_url) != "":
+                      <url>${menu_item.menu_url.replace("&", "&amp;").replace("\"", "&quot;")}</url>
+                    #end if
+                    #if str($menu_item.menu_icon) != "":
+                      <iconClass>${menu_item.menu_icon}</iconClass>
+                    #end if
+                  </menu>
+                  #end for
+                </menus>
+            #end if
+
+            #if str($track.data_format.data_format_select) == "wiggle":
+                <wiggle>
+                    <type>${track.data_format.xyplot}</type>
+                    <variance_band>${track.data_format.var_band}</variance_band>
+                  #if str($track.data_format.scaling.scale_select) == "auto_local":
+                    <autoscale>local</autoscale>
+                  #else if str($track.data_format.scaling.scale_select) == "auto_global":
+                    <autoscale>global</autoscale>
+                  #else:
+                    <min>${track.data_format.scaling.minimum}</min>
+                    <max>${track.data_format.scaling.maximum}</max>
+                  #end if
+
+                  ## Wiggle tracks need special color config
+                  #if str($track.data_format.jbcolor.color.color_select) != "automatic":
+                    <color_pos>${track.data_format.jbcolor.color.style_pos_color}</color_pos>
+                    <color_neg>${track.data_format.jbcolor.color.style_neg_color}</color_neg>
+                  #else:
+                    <color_pos>__auto__</color_pos>
+                    <color_neg>__auto__</color_neg>
+                  #end if
+
+                  ## Bicolor pivot config
+                  #if str($track.data_format.jbcolor.bicolor_pivot.bicolor_pivot_select) == "zero":
+                    <bicolor_pivot>zero</bicolor_pivot>
+                  #else if str($track.data_format.jbcolor.bicolor_pivot.bicolor_pivot_select) == "mean":
+                    <bicolor_pivot>mean</bicolor_pivot>
+                  #else:
+                    <bicolor_pivot>${track.data_format.jbcolor.bicolor_pivot.pivot_point}</bicolor_pivot>
+                  #end if
+                </wiggle>
+            #else if str($track.data_format.data_format_select) == "pileup":
+                <pileup>
+                    <auto_snp>${track.data_format.auto_snp}</auto_snp>
+                    <bam_indices>
+                        #for $dataset in $track.data_format.annotation:
+                        <bam_index>${dataset.metadata.bam_index}</bam_index>
+                        #end for
+                    </bam_indices>
+                </pileup>
+            #else if str($track.data_format.data_format_select) == "blast":
+                <blast>
+                  #if str($track.data_format.blast_parent) != "":
+                    <parent>${track.data_format.blast_parent}</parent>
+                  #end if
+                    <protein>${track.data_format.is_protein}</protein>
+                    <min_gap>${track.data_format.min_gap}</min_gap>
+                    <index>${track.data_format.index}</index>
+                </blast>
+            #else if str($track.data_format.data_format_select) == "gene_calls":
+                <gff>
+                    <trackType>${track.data_format.track_class}</trackType>
+                  #if $track.data_format.match_part.match_part_select:
+                    <match>${track.data_format.match_part.name}</match>
+                  #end if
+                    <index>${track.data_format.index}</index>
+                </gff>
+##            #else if str($track.data_format.data_format_select) == "sparql":
+##                <sparql>
+##                    <url>${track.data_format.url}</url>
+##                    <label>${track.data_format.label}</label>
+##                    <!-- This is going to be an absolutey nightmare -->
+##                    <query>${track.data_format.query}</query>
+##                </sparql>
+            #end if
+            </options>
+        </track>
+        #end for
+        #end for
+    </tracks>
+</root>
+]]></configfile>
+  </configfiles>
+  <inputs>
+      <param name="db" type="data" format="sqlite" />
+    <param name="peptides" type="data" format="fasta" optional="false" label="Peptide predictions" help="Predicted peptides in fasta format" />
+
+    <param name="predictions" type="data" format="gff" optional="false" label="" help="Annotation in protein coordinates" />
+
+
+        <param label="Track Category"
+               name="category"
+               type="text"
+               value="Default"
+               help="Organise your tracks into Categories for a nicer end-user experience" optional="False"/>
+    <repeat name="data_tracks" title="Annotation Track">
+
+
+            <when value="gene_calls">
+                <expand macro="input_conditional" label="GFF/GFF3/BED Track Data" format="gff,gff3,bed" />
+                <conditional name="match_part">
+                    <param label="This is match/match_part data"
+                           type="boolean"
+                           name="match_part_select"
+                           truevalue="true"
+                           falsevalue="false" />
+                    <when value="true">
+                        <param label="Match Part Feature Type"
+                               name="name"
+                               type="text"
+                               value="match"
+                               help="Match_parts have several options for the parent feature type, such as cDNA_match, match, translated_nucleotide_match, etc. Please select the appropriate one here"
+                               optional="False"/>
+                    </when>
+                    <when value="false" />
+                </conditional>
+
+                <param label="Index this track" name="index" type="boolean" checked="false" truevalue="true" falsevalue="false" />
+
+                <param type="select" label="JBrowse Track Type [Advanced]" name="track_class">
+                  <option value="JBrowse/View/Track/HTMLFeatures">HTML Features</option>
+                  <option value="JBrowse/View/Track/CanvasFeatures" selected="true">Canvas Features</option>
+                </param>
+                //<expand macro="track_styling" />
+                //<expand macro="color_selection" />
+                //<expand macro="track_menu" />
+                //<expand macro="track_display" />
+
+    </repeat>
+
+
+    <expand macro="general_options" />
+    <param type="hidden" name="uglyTestingHack" value="" />
+  </inputs>
+  <outputs>
+      <data format="html" name="output" label="Annotateviz $on_string "/>
+
+  </outputs>
+  <tests>
       <test>
           <param name="db"  value="Trinotate_no_uniprot.sqlite" />
     <output name="output" file="trinotateviz.html" lines_diff="2" />
-  </test>
-    </tests>
-    <help><![CDATA[
-        Displays a searchable grid for Trinotate SQLilte DB
-    ]]></help>
-    <citations>
-          <citation type="bibtex">
-  @misc{renameTODO,
-    author = {LastTODO, FirstTODO},
-    year = {TODO},
-    title = {TODO},
-    url = {https://trinotate.github.io/},}</citation>
-</citations>
+
+  </tests>
+  <help><![CDATA[
+
+
+
+@ATTRIBUTION@
+]]></help>
+  <expand macro="citations"/>
 </tool>
