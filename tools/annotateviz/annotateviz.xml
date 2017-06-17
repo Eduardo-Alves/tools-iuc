@@ -6,13 +6,13 @@
         <exit_code range="1:" />
     </stdio>
     <command><![CDATA[
-        #python annotateviz.py $database > $__tool_directory__/tmp.json;
+        python annotateviz.py $database > $__tool_directory__/trans.json;
 
-        sed "s@input_db@${__app__.security.encode_id($db.id)}@" $__tool_directory__/static/trinotateviz.html > $output;
+        #sed "s@input_db@${__app__.security.encode_id($db.id)}@" $__tool_directory__/static/trinotateviz.html > $output;
         mkdir ${output.files_path};
         cp $__tool_directory__/static/js/gff_app.js ${output.files_path};
         cp $__tool_directory__/static/css/main.css ${output.files_path};
-        cp $__tool_directory__/static/GridTemplate.html ${output.files_path}
+        cp $__tool_directory__/static/trans.json ${output.files_path}
     ]]></command>
     <inputs>
         <param name="db" type="data" format="sqlite" />

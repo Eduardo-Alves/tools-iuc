@@ -33,7 +33,7 @@ app.controller('MainCtrl', ['$scope', '$http', '$interval', 'uiGridGroupingConst
     //var url= baseurl + select;
     $http.get('trans.json')
      .success (function(response){
-         $scope.gridOptions.data = [].concat.apply([], response.data);
+         $scope.gridOptions.data = response;
         //mygridOptions.totalItems = mygridOptions.data.length;
      });//end get_url
 }])

@@ -11,6 +11,7 @@ def add_matches(matches,array):
         trans['Contig'] = m.seqid
         trans['Source'] = m.source
         trans['Score'] = m.score
+        trans['Prediction']=m["Name"]
         array.append(trans)
 def main(argv, wayout):
         if not len(argv):
