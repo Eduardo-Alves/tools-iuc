@@ -19,6 +19,7 @@ def main(argv, wayout):
         parser = argparse.ArgumentParser(formatter_class=argparse.RawDescriptionHelpFormatter, description=__doc__)
         parser.add_argument('-d','--database', help="gffutils sqlite database")
         parser.add_argument('-j','--json', help="report in json format")
+        args = parser.parse_args(argv)
         gffutils.constants.always_return_list = False
         db = gffutils.interface.FeatureDB(args.database)
         prediction_list = []
@@ -28,3 +29,25 @@ def main(argv, wayout):
         add_matches(db.features_of_type("PFAM"), prediction_list)
         fout=open(args.json, 'w')
         json.dump(prediction_list,fout)
+array=[]
+db = gffutils.interface.FeatureDB("test-data/gff.sqlite")
+
+for f in db.all_features():
+    dict = {}
+    dict['seqid'] = f.seqid
+    dict['source'] = f.source
+    dict['featuretype'] = f.featuretype
+    dict['start'] = f.start
+    dict['end'] = f.end
+    dict['score'] = f.score
+    dict['strand'] = f.strand
+    dict['frame'] = f.frame
+    dict['attributes']=f.attributes.__dict__["_d"]
+    array.append(dict)
+
+fout=open("test-data/gff.json",'w')
+
+json.dump(array,fout)
+
+if __name__ == "__main__":
+        main(sys.argv[1:],sys.stdout)

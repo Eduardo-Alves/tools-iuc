@@ -1,0 +1,6 @@
+categories: [Sequence Analysis]
+description: Transcriptome annotation visualization tool
+long_description: Tool for visualizing transcriptome annotation results using jbrowse
+remote_repository_url: "https://github.com/galaxyproject/tools-iuc/tree/master/tools/annotateviz"
+name: annotateviz
+owner: iuc

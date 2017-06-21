@@ -2,6 +2,7 @@
 <macros>
   <xml name="requirements">
     <requirements>
+        <requirement type="package" version="0.8">gffutils</requirement>
       <requirement type="package" version="1.12.1">jbrowse</requirement>
       <requirement type="package" version="2.7">python</requirement>
       <requirement type="package" version="1.66">biopython</requirement>
