@@ -8,9 +8,12 @@
     <script src="http://ui-grid.info/docs/grunt-scripts/pdfmake.js"></script>
     <script src="http://ui-grid.info/docs/grunt-scripts/vfs_fonts.js"></script>
     <script src="https://cdn.rawgit.com/angular-ui/bower-ui-grid/master/ui-grid.min.js"></script>
+   <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
+    <script src="editgff.js"></script>
+
     <link rel="stylesheet" href="https://cdn.rawgit.com/angular-ui/bower-ui-grid/master/ui-grid.min.css" type="text/css">
-      <link rel="stylesheet" href="main.css" type="text/css">
-      <link rel="stylesheet" type="text/css" href="css/genome.css">
+    <link rel="stylesheet" href="main.css" type="text/css">
+    <link rel="stylesheet" type="text/css" href="css/genome.css">
   </head>
   <body>
 
@@ -18,6 +21,12 @@
 
   <div ui-grid="gridOptions" ui-grid-pagination ui-grid-grouping ui-grid-exporter  class="grid"></div>
 </div>
+<div><br>
+left part: <input type="text" name="lpart" id="lpart">
+right part: <input type="text" name="rpart" id="rpart">
+<input type="button" value="Submit" onClick="merge_prediction() ></input>
+<input type="button" value="export" onClick="export_gff() ></input>
+<br></div>
 
     <div id="GenomeBrowser" style="height: 100%; width: 100%; padding: 0; border: 0;"></div>
     <div style="display: none">JBrowseDefaultMainPage</div>
@@ -123,4 +132,5 @@
  </script>
     <script src="gff_app.js"></script>
   </body>
+
 </html>

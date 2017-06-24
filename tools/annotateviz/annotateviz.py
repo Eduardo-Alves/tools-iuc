@@ -18,7 +18,8 @@ def main(argv, wayout):
                 argv.append("-h")
         parser = argparse.ArgumentParser(formatter_class=argparse.RawDescriptionHelpFormatter, description=__doc__)
         parser.add_argument('-d','--database', help="gffutils sqlite database")
-        parser.add_argument('-j','--json', help="report in json format")
+        parser.add_argument('-j','--json', help="annotations in json format")
+        parser.add_argument('-p','--pred', help="predictions in json")
         args = parser.parse_args(argv)
         gffutils.constants.always_return_list = False
         db = gffutils.interface.FeatureDB(args.database)
@@ -29,25 +30,34 @@ def main(argv, wayout):
         add_matches(db.features_of_type("PFAM"), prediction_list)
         fout=open(args.json, 'w')
         json.dump(prediction_list,fout)
-array=[]
-db = gffutils.interface.FeatureDB("test-data/gff.sqlite")
-
-for f in db.all_features():
-    dict = {}
-    dict['seqid'] = f.seqid
-    dict['source'] = f.source
-    dict['featuretype'] = f.featuretype
-    dict['start'] = f.start
-    dict['end'] = f.end
-    dict['score'] = f.score
-    dict['strand'] = f.strand
-    dict['frame'] = f.frame
-    dict['attributes']=f.attributes.__dict__["_d"]
-    array.append(dict)
-
-fout=open("test-data/gff.json",'w')
-
-json.dump(array,fout)
+        # create json for protein predictions
+        array=[]
+        for f in db.features_of_type("gene"):
+            dict = {}
+            dict['seqid'] = f.seqid
+            dict['source'] = f.source
+            dict['featuretype'] = f.featuretype
+            dict['start'] = f.start
+            dict['end'] = f.end
+            dict['score'] = f.score
+            dict['strand'] = f.strand
+            dict['frame'] = f.frame
+            dict['attributes']=f.attributes.__dict__["_d"]
+            array.append(dict)
+            for c in db.children(f):
+                dict = {}
+                dict['seqid'] = c.seqid
+                dict['source'] = c.source
+                dict['featuretype'] = c.featuretype
+                dict['start'] = c.start
+                dict['end'] = c.end
+                dict['score'] = c.score
+                dict['strand'] = c.strand
+                dict['frame'] = c.frame
+                dict['attributes'] = c.attributes.__dict__["_d"]
+                array.append(dict)
+        fout2=open(args.pred,'w')
+        json.dump(array,fout2)
 
 if __name__ == "__main__":
         main(sys.argv[1:],sys.stdout)

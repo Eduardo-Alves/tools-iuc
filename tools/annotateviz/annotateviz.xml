@@ -14,9 +14,10 @@ python $__tool_directory__/jbrowse.py
 --outdir $output.files_path
 $trackxml &&
 ##  $output.files_path/index.html $output;
-python  $__tool_directory__/annotateviz.py -d $db -j ${output.files_path}/trans.json &&
+python  $__tool_directory__/annotateviz.py -d $db -j ${output.files_path}/trans.json -p ${output.files_path}/gff.json &&
 sed "s@input_db@${__app__.security.encode_id($db.id)}@" $__tool_directory__/static/trinotateviz.html > $output &&
 cp $__tool_directory__/static/js/gff_app.js ${output.files_path} &&
+cp $__tool_directory__/static/js/edit.js ${output.files_path} &&
 cp $__tool_directory__/static/css/main.css ${output.files_path};
 ]]></command>
   <configfiles>
