@@ -22,7 +22,7 @@ function edit_annot(lpart,rpart) {
                     console.log("removed lpart three_prime_UTR");
                 }
                 else {
-                    jsonobj[i].attributes.Parent[0] = '.'.join(lpart,1);
+                    jsonobj[i].attributes.Parent[0] = lpart+'.1';
                 }
             }
             if (jsonobj[i].attributes.Parent[0] === rpart){
@@ -31,7 +31,7 @@ function edit_annot(lpart,rpart) {
                     console.log("removed rpart five_prime_UTR");
                 }
                 else {
-                    jsonobj[i].attributes.Parent[0] = '.'.join(lpart,1);
+                    jsonobj[i].attributes.Parent[0] = lpart+'.1'
                 }
             }
         }
